@@ -1,0 +1,22 @@
+@model lab1.Models.ProjectTask
+
+@{
+    ViewData["Title"] = "Edit Task";
+}
+
+<h1>Edit Task</h1>
+
+<form asp-action="Edit">
+    <input type="hidden" asp-for="ProjectTaskId" />
+    <input type="hidden" asp-for="ProjectId" />
+    <!-- Repeat the form group sections from Create.cshtml here, excluding the ProjectId since it's hidden -->
+    <button type="submit" class="btn btn-success">Save Changes</button>
+</form>
+
+<div>
+    <a asp-action="Index" asp-route-projectId="@Model.ProjectId">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

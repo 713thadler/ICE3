@@ -1,0 +1,53 @@
+@model lab1.Models.Project
+
+@{
+    ViewData["Title"] = "Create Project";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div class="container mt-5">
+    <form asp-controller="Project" asp-action="Create" method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="form-group">
+            <label asp-for="Name" class="control-label">Project Name</label>
+            <input asp-for="Name" class="form-control" placeholder="Enter project name" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Description" class="control-label">Description</label>
+            <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="CreatedAt" class="control-label">Created At</label>
+            <input asp-for="CreatedAt" type="date" class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <label asp-for="EndedAt" class="control-label">Ended At</label>
+            <input asp-for="EndedAt" type="date" class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Status" class="control-label">Status</label>
+            <select asp-for="Status" class="form-control">
+                <option value="">-- Select Status --</option>
+                <option value="Active">Active</option>
+                <option value="Completed">Completed</option>
+                <option value="On Hold">On Hold</option>
+                <option value="Cancelled">Cancelled</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -1,0 +1,42 @@
+@model lab1.Models.Project
+@{
+    // Set the page title
+    ViewData["Title"] = "Project Deatils";
+}
+
+
+<!-- Main article for Project Details -->
+<article>
+    <header>
+        <!-- Page Header -->
+        <h2>@ViewData["Title"]</h2>
+        <h3>Project Details</h3>
+    </header>
+
+    <section class="card">
+        <!-- Card Body -->
+        <div class="card-body">
+            <!-- Project Name -->
+            <h2 class="card-title">@Model.Name</h2>
+            <!-- Project Description -->
+            <p class="card-text">@Model.Description</p>
+
+            <!-- Project Information List -->
+            <dl class="row">
+                <!-- Project ID -->
+                <dt class="col-sm-3">Project ID</dt>
+                <dd class="col-sm-9">@Model.ProjectId</dd>
+                <!-- Additional project properties can be added here -->
+            </dl>
+
+            <!-- Edit and Back to List Actions -->
+            <div class="btn-group" role="group" aria-label="Project Actions">
+                <!-- Edit Project Button -->
+                <a asp-controller="Project" asp-action="Edit" asp-route-id="@Model.ProjectId"
+                    class="btn btn-primary">Edit</a>
+                <!-- Back to Project List Button -->
+                <a asp-controller="Project" asp-action="Index" class="btn btn-secondary">Back to List</a>
+            </div>
+        </div>
+    </section>
+</article>

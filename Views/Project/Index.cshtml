@@ -1,0 +1,55 @@
+@model List<Project>
+
+@{
+    ViewData["Title"] = "Projects";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+@if (Model != null && Model.Count > 0)
+{
+    <table class="table">
+    <thead>
+        <tr>
+            <th>Project Name</th>
+            <th>Description</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Status</th>
+            <th>Number of Tasks</th>
+            <th>Remaining Active Tasks</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var project in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => project.Name)</td>
+                <td>@Html.DisplayFor(modelItem => project.Description)</td>
+                <td>@project.CreatedAt.ToString("yyyy-MM-dd")</td>
+                <td>@(project.EndedAt.HasValue ? project.EndedAt.Value.ToString("yyyy-MM-dd") : "Not Set")</td>
+                <td>@Html.DisplayFor(modelItem => project.Status)</td>
+                <td>@project.TaskCount</td>
+                <td>@project.RemainingTaskCount</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@project.ProjectId" class="btn btn-info">Details</a>
+                    <a asp-action="Edit" asp-route-id="@project.ProjectId" class="btn btn-warning">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@project.ProjectId" class="btn btn-danger">Delete</a>
+                    <a asp-controller="ProjectTask" asp-action="Index" asp-route-id="@project.ProjectId" class="btn btn-primary">Tasks</a>
+                 </td>
+                
+
+            </tr>
+        }
+    </tbody>
+</table>
+}
+else
+{
+    <div class="alert alert-info" role="alert">
+    <strong>No Projects Found</strong>
+    </div>
+}
+
+<a asp-action="Create" class="btn btn-primary">Create New Project</a>

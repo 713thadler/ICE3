@@ -1,0 +1,48 @@
+@model List<ProjectTask>
+
+@{
+    ViewData["Title"] = "Project Tasks";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+@if (Model != null && Model.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var task in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => task.Title)</td>
+                    <td>@Html.DisplayFor(modelItem => task.Description)</td>
+                    <td>@task.StartDate?.ToString("yyyy-MM-dd")</td>
+                    <td>@task.EndDate?.ToString("yyyy-MM-dd")</td>
+                    <td>@Html.DisplayFor(modelItem => task.Status)</td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@task.ProjectTaskId" class="btn btn-info">Details</a>
+                        <a asp-action="Edit" asp-route-id="@task.ProjectTaskId" class="btn btn-warning">Edit</a>
+                        <a asp-action="Delete" asp-route-id="@task.ProjectTaskId" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <div class="alert alert-info" role="alert">
+        <strong>No Tasks Found</strong>
+    </div>
+}
+
+<a asp-action="Create" asp-route-projectId="@ViewBag.ProjectId" class="btn btn-primary">Add New Task</a>
